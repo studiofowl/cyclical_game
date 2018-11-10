@@ -298,7 +298,7 @@ public class PlayerController : MonoBehaviour {
             Debug.DrawRay(rayOrigin, -Vector2.up * rayLength, Color.cyan);
 
             if (hit) {
-                if (hit.collider.gameObject.layer == 9) hitObstacle = true;
+                if (hit.collider.gameObject.layer == 10) hitObstacle = true;
             }
         }
         if (hitObstacle) {
