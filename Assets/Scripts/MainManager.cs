@@ -58,7 +58,7 @@ public class MainManager : MonoBehaviour {
 		mainTextMesh.text = "";
 	}
 
-	private void BeginNextLevel() {
+	public void BeginNextLevel() {
 		if ((currentLevelNumber + 1) > allLevels.Length - 1) {
 			Debug.Log("ERROR - level number exceeded number of levels");
 			return;
