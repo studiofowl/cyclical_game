@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114329500307268082}
   - component: {fileID: 114346779227177940}
   m_Layer: 8
-  m_Name: SKAP
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
