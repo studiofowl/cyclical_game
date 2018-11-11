@@ -69,25 +69,6 @@ public class MainManager : MonoBehaviour {
 		allLevels[currentLevelNumber].SetActive(true);
 		WriteNextLineForCurrentLevel();
 	}
-
-	private void WriteNextLineForCurrentLevel() {
-		if (currentLevelNumber == 0) {
-			if (currentLineInLevel == 0) {
-				BeginNewPhrase("collect orb please", false);
-			}
-			else if (currentLineInLevel == 1) {
-				WriteNextLine("use WASD to move", true, 0.5f);
-			}
-		}
-		else if (currentLevelNumber == 1) {
-			if (currentLineInLevel == 0) {
-				BeginNewPhrase("now do it again", true);
-			}
-		}
-		else {
-			StopAndDeleteWriting();
-		}
-	}
 	
 	IEnumerator WriteLine(string currentPhrase, bool isFinalLineInPhrase, float preWriteDelayAmount) {
 		yield return new WaitForSeconds(preWriteDelayAmount);
@@ -107,6 +88,44 @@ public class MainManager : MonoBehaviour {
 		else {
 			currentLineInLevel++;
 			WriteNextLineForCurrentLevel();
+		}
+	}
+
+	private void WriteNextLineForCurrentLevel() {
+		switch (currentLevelNumber) {
+			case 0:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("collect orb please", false);
+						break;
+					case 1:
+						WriteNextLine("use WASD to move", true, 0.5f);
+						break;
+				}
+				break;
+			case 1:
+				BeginNewPhrase("now do it again", true);
+				break;
+			case 2:
+				BeginNewPhrase("again please", true);
+				break;
+			case 3:
+				BeginNewPhrase("again", true);
+				break;
+			case 4:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("try jump", false);
+						break;
+					case 1:
+						WriteNextLine("use SPACEBAR to jump", true, 0.5f);
+						break;
+				}
+				break;
+			default:
+				StopAndDeleteWriting();
+				break;
+
 		}
 	}
 }
