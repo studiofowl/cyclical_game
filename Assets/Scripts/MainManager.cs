@@ -30,7 +30,7 @@ public class MainManager : MonoBehaviour {
 		}
 	}
 
-	private void BeginNewPhrase(string currentPhrase, bool isFinalLineInPhrase, float preWriteDelayAmount = 0) {
+    private void BeginNewPhrase(string currentPhrase, bool isFinalLineInPhrase, float preWriteDelayAmount = 0) {
 		StopAndDeleteWriting();
 		writeLineCo = StartCoroutine(WriteLine(currentPhrase, isFinalLineInPhrase, preWriteDelayAmount));
 	}
@@ -48,7 +48,7 @@ public class MainManager : MonoBehaviour {
 		mainTextMesh.text = "";
 	}
 
-	private void BeginNextLevel() {
+	public void BeginNextLevel() {
 		currentLevelNumber++;
 		currentLineInLevel = 0;
 		if (currentLevelNumber > allLevels.Length - 1) {
