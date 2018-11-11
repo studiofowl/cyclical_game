@@ -13,16 +13,17 @@ public class MainManager : MonoBehaviour {
 	public Player playerScript;
 	public bool rotateTextOn = true;
 
-	private int currentLevelNumber = 0;
+	public int currentLevelNumber = 0;
 	private int currentLineInLevel = 0;
 	private Coroutine writeLineCo;
 	private Transform mainTextTransform;
 
 	void Start () {
 		mainTextTransform = mainTextMesh.transform;
-		for (int i = 1; i < allLevels.Length; i++) {
+		for (int i = 0; i < allLevels.Length; i++) {
 			allLevels[i].SetActive(false);
 		}
+		allLevels[currentLevelNumber].SetActive(true);
 		WriteNextLineForCurrentLevel();
 	}
 
