@@ -104,10 +104,14 @@ public class Player : MonoBehaviour {
         directionalInput = input;
     }
     public void OnJumpInputDown() {
+        // The two conditional statments below decide whether player can remain in a roll when jumping
+
+        /*
         if (!myController.myCollisions.roomToStopDucking && myController.myCollisions.isDucking) return;
         if (myController.myCollisions.isDucking && genericController.collisions.grounded) {
             rollingScript.StopDuckingOrRolling();
         }
+        */
         if (genericController.collisions.below) {
             /*if (myController.myCollisions.hasArmsOut) {
                 myController.edgeGrabScript.TakeOutOrPutAwayArms(false);

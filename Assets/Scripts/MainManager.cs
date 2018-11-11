@@ -122,6 +122,59 @@ public class MainManager : MonoBehaviour {
 						break;
 				}
 				break;
+			case 5:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("nice", false);
+						break;
+					case 1:
+						WriteNextLine("do it again", true, 0.5f);
+						break;
+				}
+				break;
+			case 6:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("here's a big gap", false);
+						break;
+					case 1:
+						WriteNextLine("try hold jump", true, 0.5f);
+						break;
+				}
+				break;
+			case 7:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("try grab", false);
+						break;
+					case 1:
+						WriteNextLine("just jump to grab", true, 0.5f);
+						break;
+				}
+				break;
+			case 8:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("try roll", false);
+						break;
+					case 1:
+						WriteNextLine("hold RIGHTMOUSECLICK", false, 0.5f);
+						break;
+					case 2:
+						WriteNextLine("and use WASD to roll", true);
+						break;
+				}
+				break;
+			case 9:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("you're doing great", false);
+						break;
+					case 1:
+						WriteNextLine("keep at it", true, 0.5f);
+						break;
+				}
+				break;
 			default:
 				StopAndDeleteWriting();
 				break;
