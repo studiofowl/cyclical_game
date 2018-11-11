@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class MainManager : MonoBehaviour {
 
 	public TextMeshProUGUI mainTextMesh;
-	public string startingLine = "collect orb please";
 	public float timeBetweenCharacters = 0.1f;
 	public GameObject[] allLevels;
+	public Transform playerTransform, deathCutoffPoint;
+	public Player playerScript;
 	public bool rotateTextOn = true;
 
 	private int currentLevelNumber = 0;
@@ -27,6 +29,14 @@ public class MainManager : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown("e")) {
 			BeginNextLevel();
+		}
+		if (Input.GetKeyDown("r")) {
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+		if (playerTransform.position.y < deathCutoffPoint.position.y) {
+			if (allLevels[currentLevelNumber].transform.childCount < 1) Debug.Log("ERROR - level missing a spawn transform");
+			playerScript.ResetPlayerVelocity();
+			playerTransform.position = allLevels[currentLevelNumber].transform.GetChild(0).position;
 		}
 	}
 
@@ -49,12 +59,12 @@ public class MainManager : MonoBehaviour {
 	}
 
 	private void BeginNextLevel() {
-		currentLevelNumber++;
-		currentLineInLevel = 0;
-		if (currentLevelNumber > allLevels.Length - 1) {
+		if ((currentLevelNumber + 1) > allLevels.Length - 1) {
 			Debug.Log("ERROR - level number exceeded number of levels");
 			return;
 		}
+		currentLevelNumber++;
+		currentLineInLevel = 0;
 		allLevels[currentLevelNumber - 1].SetActive(false);
 		allLevels[currentLevelNumber].SetActive(true);
 		WriteNextLineForCurrentLevel();
@@ -66,7 +76,7 @@ public class MainManager : MonoBehaviour {
 				BeginNewPhrase("collect orb please", false);
 			}
 			else if (currentLineInLevel == 1) {
-				WriteNextLine("use WASD to move", true, 1f);
+				WriteNextLine("use WASD to move", true, 0.5f);
 			}
 		}
 		else if (currentLevelNumber == 1) {

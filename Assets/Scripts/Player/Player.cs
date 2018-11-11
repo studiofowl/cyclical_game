@@ -155,6 +155,11 @@ public class Player : MonoBehaviour {
         flipTransform.localScale = newScale;
     }
 
+    public void ResetPlayerVelocity() {
+        velocity = Vector2.zero;
+        velocityXSmoothing = 0;
+    }
+
     public void PlayerHit(float damageAmount) {
         /* if (upperSr.color == defaultColor) {
             health -= damageAmount;
