@@ -18,6 +18,7 @@ public class MainManager : MonoBehaviour {
 	private Coroutine writeLineCo;
 	private Transform mainTextTransform;
 	private bool safetyNetTriggered = false;
+	private Transform[] endTriggerPositions;
 
 	void Start () {
 		mainTextTransform = mainTextMesh.transform;
@@ -73,16 +74,23 @@ public class MainManager : MonoBehaviour {
 	}
 
 	public void BeginNextLevel() {
-		if ((currentLevelNumber + 1) > allLevels.Length - 1) {
+		if (currentLevelNumber < 17 && (currentLevelNumber + 1) > allLevels.Length - 1) {
 			Debug.Log("ERROR - level number exceeded number of levels");
 			return;
 		}
 		safetyNetTriggered = false;
-		currentLevelNumber++;
+		if (currentLevelNumber < 17) {
+			currentLevelNumber++;
+			allLevels[currentLevelNumber - 1].SetActive(false);
+			allLevels[currentLevelNumber].SetActive(true);
+		}
+		else {
+			currentLevelNumber--;
+			allLevels[currentLevelNumber + 1].SetActive(false);
+			allLevels[currentLevelNumber].SetActive(true);
+		}
 		currentLineInLevel = 0;
-		allLevels[currentLevelNumber - 1].SetActive(false);
-		allLevels[currentLevelNumber].SetActive(true);
-		if (currentLevelNumber == 15 || currentLevelNumber == 16) {
+		if (currentLevelNumber == 15 ) {
 			playerScript.InvertInput();
 		}
 		WriteNextLineForCurrentLevel();
@@ -266,6 +274,12 @@ public class MainManager : MonoBehaviour {
 						WriteNextLine("(something is flipped at least)", true, 3f);
 						break;
 				}
+				break;
+			case 16:
+				BeginNewPhrase("please collect orb", true);
+				break;
+			case 17:
+				BeginNewPhrase("please collect orb", true);
 				break;
 			default:
 				StopAndDeleteWriting();
