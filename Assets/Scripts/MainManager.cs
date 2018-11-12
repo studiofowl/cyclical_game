@@ -31,6 +31,7 @@ public class MainManager : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown("e")) {
 			BeginNextLevel();
+			playerTransform.position = allLevels[currentLevelNumber].transform.GetChild(0).position;
 		}
 		if (Input.GetKeyDown("r")) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -98,7 +99,7 @@ public class MainManager : MonoBehaviour {
 			case 0:
 				switch (currentLineInLevel) {
 					case 0:
-						BeginNewPhrase("collect orb please", false);
+						BeginNewPhrase("please collect orb", false);
 						break;
 					case 1:
 						WriteNextLine("use WASD to move", true, 0.5f);
@@ -150,7 +151,10 @@ public class MainManager : MonoBehaviour {
 						BeginNewPhrase("try grab", false);
 						break;
 					case 1:
-						WriteNextLine("just jump to grab", true, 0.5f);
+						WriteNextLine("just jump to grab", false, 0.5f);
+						break;
+					case 2:
+						WriteNextLine("then jump from grab", true, 0.5f);
 						break;
 				}
 				break;
@@ -174,6 +178,55 @@ public class MainManager : MonoBehaviour {
 						break;
 					case 1:
 						WriteNextLine("keep at it", true, 0.5f);
+						break;
+				}
+				break;
+			case 10:
+				BeginNewPhrase("i'm proud of you", true);
+				break;
+			case 11:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("this orb is a doozy", false);
+						break;
+					case 1:
+						WriteNextLine("but i believe in you", true, 0.5f);
+						break;
+				}
+				break;
+			case 12:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("outstanding", false);
+						break;
+					case 1:
+						WriteNextLine("next orb is easy", false, 0.5f);
+						break;
+					case 2:
+						WriteNextLine("you deserve some rest", true, 0.5f);
+						break;
+				}
+				break;
+			case 13:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("oh my, i'm sorry", false);
+						break;
+					case 1:
+						WriteNextLine("this one is impossible", true, 0.5f);
+						break;
+				}
+				break;
+			case 14:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("that was a joke", false);
+						break;
+					case 1:
+						WriteNextLine("but this one's impossible", false, 0.5f);
+						break;
+					case 2:
+						WriteNextLine("i'm sorry", true, 0.5f);
 						break;
 				}
 				break;
