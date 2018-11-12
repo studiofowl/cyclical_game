@@ -23,6 +23,7 @@ public class MainManager : MonoBehaviour {
 		for (int i = 0; i < allLevels.Length; i++) {
 			allLevels[i].SetActive(false);
 		}
+		playerTransform.position = allLevels[currentLevelNumber].transform.GetChild(0).position;
 		allLevels[currentLevelNumber].SetActive(true);
 		WriteNextLineForCurrentLevel();
 	}
