@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
 
     internal Vector2 directionalInput;
 
+    private bool inputFlipped = false;
+
 	void Start () {
         flipTransform = transform.GetChild(0);
         anim = flipTransform.GetChild(0).GetComponent<Animator>();
@@ -100,8 +102,13 @@ public class Player : MonoBehaviour {
         velocity.y += gravity * Time.deltaTime;
     }
 
+    public void InvertInput() {
+        inputFlipped = !inputFlipped;
+    }
+
     public void SetDirectionalInput (Vector2 input) {
-        directionalInput = input;
+        if (!inputFlipped) directionalInput = input;
+        else directionalInput = -input;
     }
     public void OnJumpInputDown() {
         // The two conditional statments below decide whether player can remain in a roll when jumping

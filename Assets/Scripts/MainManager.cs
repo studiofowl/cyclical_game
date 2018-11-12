@@ -26,6 +26,9 @@ public class MainManager : MonoBehaviour {
 		}
 		playerTransform.position = allLevels[currentLevelNumber].transform.GetChild(0).position;
 		allLevels[currentLevelNumber].SetActive(true);
+		if (currentLevelNumber == 15) {
+			playerScript.InvertInput();
+		}
 		WriteNextLineForCurrentLevel();
 	}
 
@@ -79,6 +82,9 @@ public class MainManager : MonoBehaviour {
 		currentLineInLevel = 0;
 		allLevels[currentLevelNumber - 1].SetActive(false);
 		allLevels[currentLevelNumber].SetActive(true);
+		if (currentLevelNumber == 15 || currentLevelNumber == 16) {
+			playerScript.InvertInput();
+		}
 		WriteNextLineForCurrentLevel();
 	}
 	
@@ -245,6 +251,19 @@ public class MainManager : MonoBehaviour {
 						break;
 					case 4:
 						WriteNextLine("walk to the right", true, 0.5f);
+						break;
+				}
+				break;
+			case 15:
+				switch (currentLineInLevel) {
+					case 0:
+						BeginNewPhrase("try the maze again", false);
+						break;
+					case 1:
+						WriteNextLine("but flipped this time", false);
+						break;
+					case 2:
+						WriteNextLine("(something is flipped at least)", true, 3f);
 						break;
 				}
 				break;
