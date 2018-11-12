@@ -9,7 +9,7 @@ public class MainManager : MonoBehaviour {
 	public TextMeshProUGUI mainTextMesh;
 	public float timeBetweenCharacters = 0.1f;
 	public GameObject[] allLevels;
-	public Transform playerTransform, deathCutoffPoint;
+	public Transform playerTransform, deathCutoffPoint, safetyNetTriggerPoint;
 	public Player playerScript;
 	public bool rotateTextOn = true;
 
@@ -17,6 +17,7 @@ public class MainManager : MonoBehaviour {
 	private int currentLineInLevel = 0;
 	private Coroutine writeLineCo;
 	private Transform mainTextTransform;
+	private bool safetyNetTriggered = false;
 
 	void Start () {
 		mainTextTransform = mainTextMesh.transform;
@@ -39,7 +40,14 @@ public class MainManager : MonoBehaviour {
 		if (playerTransform.position.y < deathCutoffPoint.position.y) {
 			if (allLevels[currentLevelNumber].transform.childCount < 1) Debug.Log("ERROR - level missing a spawn transform");
 			playerScript.ResetPlayerVelocity();
-			playerTransform.position = allLevels[currentLevelNumber].transform.GetChild(0).position;
+			if (!safetyNetTriggered) playerTransform.position = allLevels[currentLevelNumber].transform.GetChild(0).position;
+			else playerTransform.position = allLevels[currentLevelNumber].transform.GetChild(1).position;
+		}
+		if (!safetyNetTriggered && currentLevelNumber == 14) {
+			if (playerTransform.position.x >= safetyNetTriggerPoint.position.x && playerTransform.position.y <= safetyNetTriggerPoint.position.y) {
+				BeginNewPhrase("that was another joke", false);
+				safetyNetTriggered = true;
+			}
 		}
 	}
 
@@ -66,6 +74,7 @@ public class MainManager : MonoBehaviour {
 			Debug.Log("ERROR - level number exceeded number of levels");
 			return;
 		}
+		safetyNetTriggered = false;
 		currentLevelNumber++;
 		currentLineInLevel = 0;
 		allLevels[currentLevelNumber - 1].SetActive(false);
@@ -81,9 +90,9 @@ public class MainManager : MonoBehaviour {
 		}
 		if (isFinalLineInPhrase) {
 			while (rotateTextOn) {
-				yield return new WaitForSeconds(0.2f);
+				yield return new WaitForSeconds(0.2833f);
 				mainTextTransform.eulerAngles = new Vector3(0, 0, -0.5f);
-				yield return new WaitForSeconds(0.2f);
+				yield return new WaitForSeconds(0.2833f);
 				mainTextTransform.eulerAngles = new Vector3(0, 0, 0.5f);
 			}
 			mainTextTransform.eulerAngles = new Vector3(0, 0, 0);
@@ -213,7 +222,10 @@ public class MainManager : MonoBehaviour {
 						BeginNewPhrase("oh my, i'm sorry", false);
 						break;
 					case 1:
-						WriteNextLine("this one is impossible", true, 0.5f);
+						WriteNextLine("this one is impossible", false, 0.5f);
+						break;
+					case 2:
+						WriteNextLine("(try jump)", true, 5f);
 						break;
 				}
 				break;
@@ -227,6 +239,12 @@ public class MainManager : MonoBehaviour {
 						break;
 					case 2:
 						WriteNextLine("i'm sorry", true, 0.5f);
+						break;
+					case 3:
+						WriteNextLine("we need you to get the orb", false, 0.5f);
+						break;
+					case 4:
+						WriteNextLine("walk to the right", true, 0.5f);
 						break;
 				}
 				break;
